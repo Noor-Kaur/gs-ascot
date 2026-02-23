@@ -1099,10 +1099,14 @@ function filterSub(catId, sub) {
 function searchCards(q) {
   q = q.trim().toLowerCase();
   if (!q) { currentSub ? filterSub(currentCat, currentSub) : currentCat ? filterCat(currentCat) : showAll(); return; }
+  if (PRODUCTS.length === 0) {
+    renderProducts([], "Search Results", `"${q}"`, currentCat, currentSub, "loading");
+    return;
+  }
   const pool = currentSub ? PRODUCTS.filter(p => p.cat === currentCat && p.sub === currentSub) :
                currentCat ? PRODUCTS.filter(p => p.cat === currentCat) : PRODUCTS;
   const filtered = pool.filter(p => (p.model + " " + p.spec + " " + (p.app||"") + " " + (p.sub||"")).toLowerCase().includes(q));
-  renderProducts(filtered, "Search Results", `"${q}"`, currentCat, currentSub);
+  renderProducts(filtered, "Search Results", `"${q}"`, currentCat, currentSub, filtered.length === 0 ? "no-results" : "");
 }
 
 // ── SUBCATEGORY BAR ──
@@ -1134,7 +1138,7 @@ function renderSubcatBar(cat, activeSub) {
 }
 
 // ── RENDER ──
-function renderProducts(list, title, subtitle, catId, sub) {
+function renderProducts(list, title, subtitle, catId, sub, emptyHint) {
   const grid = document.getElementById("product-grid");
   const emptyArea = document.getElementById("empty-area");
   grid.innerHTML = "";
@@ -1160,12 +1164,26 @@ function renderProducts(list, title, subtitle, catId, sub) {
 
   if (list.length === 0) {
     document.getElementById("count-label").textContent = "0 products";
+    var emptyTitle, emptyDesc, emptyTag;
+    if (emptyHint === "loading") {
+      emptyTitle = "Loading Products\u2026";
+      emptyDesc = "Product data is still loading. Please wait a moment and try again.";
+      emptyTag = "&#9670; Loading";
+    } else if (emptyHint === "no-results") {
+      emptyTitle = "No Results Found";
+      emptyDesc = "No products matched your search.<br>Try a different keyword or browse categories.";
+      emptyTag = "&#9670; Try Another Search";
+    } else {
+      emptyTitle = "Coming Soon";
+      emptyDesc = "Products for this section are being catalogued.<br>New items will appear here shortly.";
+      emptyTag = "&#9670; Awaiting Product Data";
+    }
     emptyArea.innerHTML = `
       <div class="empty-wrap">
         <div class="empty-diamond"><div class="empty-diamond-inner">&#9670;</div></div>
-        <div class="empty-title">Coming Soon</div>
-        <p class="empty-desc">Products for this section are being catalogued.<br>New items will appear here shortly.</p>
-        <div class="empty-tag">&#9670; Awaiting Product Data</div>
+        <div class="empty-title">${emptyTitle}</div>
+        <p class="empty-desc">${emptyDesc}</p>
+        <div class="empty-tag">${emptyTag}</div>
       </div>`;
   } else {
     document.getElementById("count-label").textContent = list.length + " product" + (list.length !== 1 ? "s" : "");
