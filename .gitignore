@@ -3,5 +3,6 @@
 
 # Allow website files
 !.gitignore
+!.nojekyll
 !GS-ASCOT_Catalog (8) (1).html
 !products.js
