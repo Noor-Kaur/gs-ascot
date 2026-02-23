@@ -1,0 +1,7 @@
+# Ignore everything
+*
+
+# Allow website files
+!.gitignore
+!GS-ASCOT_Catalog (8) (1).html
+!products.js
