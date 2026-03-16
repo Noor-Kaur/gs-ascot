@@ -1429,6 +1429,7 @@ window.filterSub = function(catId, sub) {
 <script>
 // Re-render when products load from external file
 document.addEventListener('productsReady', function() {
+  console.log('productsReady fired, PRODUCTS count:', PRODUCTS.length);
   try { buildSidebar(); } catch(e) { console.warn('rebuild sidebar:', e); }
   if (currentCat) {
     try { currentSub ? filterSub(currentCat, currentSub) : filterCat(currentCat); } catch(e) {}
@@ -1437,6 +1438,6 @@ document.addEventListener('productsReady', function() {
   }
 });
 </script>
-<script src="products.js"></script>
+<script src="products.js?v=20260223"></script>
 </body>
 </html>
