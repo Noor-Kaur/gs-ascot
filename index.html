@@ -814,17 +814,6 @@ footer::before{
       <div class="subcat-scroll" id="subcat-scroll"></div>
     </div>
     <div class="product-grid" id="product-grid">
-      <div class="cat-card" data-cat="starter" onclick="filterCat('starter')"><div class="cat-card-num">01</div><div class="cat-card-label">Self-Starter</div></div>
-      <div class="cat-card" data-cat="alternator" onclick="filterCat('alternator')"><div class="cat-card-num">02</div><div class="cat-card-label">Alternator</div></div>
-      <div class="cat-card" data-cat="wiper-blades" onclick="filterCat('wiper-blades')"><div class="cat-card-num">03</div><div class="cat-card-label">Wiper Blades</div></div>
-      <div class="cat-card" data-cat="wiper-motor" onclick="filterCat('wiper-motor')"><div class="cat-card-num">04</div><div class="cat-card-label">Wiper Motor</div></div>
-      <div class="cat-card" data-cat="spray-motor" onclick="filterCat('spray-motor')"><div class="cat-card-num">05</div><div class="cat-card-label">Spray Motor</div></div>
-      <div class="cat-card" data-cat="earthmover" onclick="filterCat('earthmover')"><div class="cat-card-num">06</div><div class="cat-card-label">Earthmover & Heavy Machinery</div></div>
-      <div class="cat-card" data-cat="halogen" onclick="filterCat('halogen')"><div class="cat-card-num">07</div><div class="cat-card-label">Halogen Bulbs</div></div>
-      <div class="cat-card" data-cat="headlight-led" onclick="filterCat('headlight-led')"><div class="cat-card-num">08</div><div class="cat-card-label">Headlight LED</div></div>
-      <div class="cat-card" data-cat="work-led" onclick="filterCat('work-led')"><div class="cat-card-num">09</div><div class="cat-card-label">Universal / Work LED</div></div>
-      <div class="cat-card" data-cat="horns" onclick="filterCat('horns')"><div class="cat-card-num">10</div><div class="cat-card-label">Horns</div></div>
-      <div class="cat-card" data-cat="others" onclick="filterCat('others')"><div class="cat-card-num">11</div><div class="cat-card-label">Others</div></div>
     </div>
     <div id="empty-area"></div>
   </main>
@@ -919,23 +908,7 @@ const tickerTrack = document.getElementById("ticker-track");
 if (tickerTrack) tickerTrack.innerHTML = [...TICKER_ITEMS,...TICKER_ITEMS,...TICKER_ITEMS].map(t => `<div class="ticker-item">${t}</div>`).join("");
 
 // ── CATEGORIES ──
-const CATEGORIES = [
-  { id:"starter",       num:"01", label:"Self-Starter",
-    subs:["Complete Assembly","Self Gear","Armature","Solenoid Switch","EGT","Brush Holder","Field Coil","Self Bearing","Brush Holder Carbon","Pole Screw","EGT Gear","EGT Annulus Ring","Self Fork","Self Lock Katori","Self Killi Kit","Self Body"] },
-  { id:"alternator",    num:"02", label:"Alternator",
-    subs:["Clutch Pulley","Stator","Rotor","Rectifier","Regulator","Alternator Holder","Alternator Carbon Brush","Alternator Bearing","Slip Ring"] },
-  { id:"wiper-blades",  num:"03", label:"Wiper Blades",
-    subs:["Universal U-Hook","Bolt Type","Bayonet Type","With Rod"] },
-  { id:"wiper-motor",   num:"04", label:"Wiper Motor",   subs:[] },
-  { id:"spray-motor",   num:"05", label:"Spray Motor",   subs:[] },
-  { id:"earthmover",    num:"06", label:"Earthmover & Heavy Machinery", subs:[] },
-  { id:"halogen",       num:"07", label:"Halogen Bulbs", subs:[] },
-  { id:"headlight-led", num:"08", label:"Headlight LED", subs:[] },
-  { id:"work-led",      num:"09", label:"Universal / Work LED", subs:[] },
-  { id:"horns",         num:"10", label:"Horns",         subs:[] },
-  { id:"others",        num:"11", label:"Others",
-    subs:["Wiring & Relays","PVC Tape","Ignition / Push Pull Switch","Car Chargers","Fuse"] },
-];
+const CATEGORIES = [];
 
 var PRODUCTS = [];
 
