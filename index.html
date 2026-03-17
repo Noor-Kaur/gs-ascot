@@ -765,7 +765,7 @@ footer::before{
   </div>
   <div class="hero-right">
     <div class="hero-stats">
-      <div class="stat-tile"><div class="stat-n">16</div><div class="stat-l">Categories</div></div>
+      <div class="stat-tile"><div class="stat-n">18</div><div class="stat-l">Categories</div></div>
       <div class="stat-tile"><div class="stat-n">2318</div><div class="stat-l">Products</div></div>
       <div class="stat-tile"><div class="stat-n">OE</div><div class="stat-l">Quality</div></div>
       <div class="stat-tile"><div class="stat-n">&#9670;</div><div class="stat-l">Genuine Parts</div></div>
@@ -829,7 +829,9 @@ footer::before{
       <div class="cat-card" data-cat="horns" onclick="filterCat('horns')"><div class="cat-card-num">13</div><div class="cat-card-label">HORNS</div></div>
       <div class="cat-card" data-cat="reverse-horn" onclick="filterCat('reverse-horn')"><div class="cat-card-num">14</div><div class="cat-card-label">REVERSE HORN</div></div>
       <div class="cat-card" data-cat="ignition-switch" onclick="filterCat('ignition-switch')"><div class="cat-card-num">15</div><div class="cat-card-label">IGNITION SWITCH</div></div>
-      <div class="cat-card" data-cat="others" onclick="filterCat('others')"><div class="cat-card-num">16</div><div class="cat-card-label">OTHERS</div></div>
+      <div class="cat-card" data-cat="delco-cap-rotors" onclick="filterCat('delco-cap-rotors')"><div class="cat-card-num">16</div><div class="cat-card-label">DELCO CAP ROTORS</div></div>
+      <div class="cat-card" data-cat="vacuum-pump-and-rotor" onclick="filterCat('vacuum-pump-and-rotor')"><div class="cat-card-num">17</div><div class="cat-card-label">VACUUM PUMP AND ROTOR</div></div>
+      <div class="cat-card" data-cat="others" onclick="filterCat('others')"><div class="cat-card-num">18</div><div class="cat-card-label">OTHERS</div></div>
     </div>
     <div id="empty-area"></div>
   </main>
@@ -940,7 +942,9 @@ const CATEGORIES = [
   { id:"horns", num:"13", label:"HORNS", subs:[] },
   { id:"reverse-horn", num:"14", label:"REVERSE HORN", subs:[] },
   { id:"ignition-switch", num:"15", label:"IGNITION SWITCH", subs:[] },
-  { id:"others", num:"16", label:"OTHERS", subs:["Wiring and Relays", "PVC Tape", "Push Pull Switch", "Head Light Switches", "Car Chargers", "Fuse", "Fuse Box", "Brush Guide", "Miscellaneous", "Glow Plug", "Accessory Switches", "Headlight Holder and Couplers", "Delco Cap Rotors", "Vacuum Pump and Rotor"] }
+  { id:"delco-cap-rotors", num:"16", label:"DELCO CAP ROTORS", subs:[] },
+  { id:"vacuum-pump-and-rotor", num:"17", label:"VACUUM PUMP AND ROTOR", subs:[] },
+  { id:"others", num:"18", label:"OTHERS", subs:["Wiring and Relays", "PVC Tape", "Push Pull Switch", "Head Light Switches", "Car Chargers", "Fuse", "Fuse Box", "Brush Guide", "Miscellaneous", "Glow Plug", "Accessory Switches", "Headlight Holder and Couplers"] }
 ];
 
 var PRODUCTS = [];
@@ -1336,6 +1340,6 @@ document.addEventListener('productsReady', function() {
   }
 });
 </script>
-<script src="products.js?v=20260223g"></script>
+<script src="products.js?v=20260223h"></script>
 </body>
 </html>
