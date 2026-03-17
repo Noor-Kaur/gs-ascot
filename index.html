@@ -373,13 +373,11 @@ header::after{
 }
 .card-idx{font-family:var(--font-mono);font-size:.75rem;color:rgba(0,0,0,.2)}
 .card-model{
-  font-family:var(--font-display);font-size:1.85rem;font-weight:800;
-  letter-spacing:-.02em;line-height:.95;text-transform:uppercase;
+  font-family:var(--font-display);font-size:1.1rem;font-weight:800;
+  letter-spacing:-.02em;line-height:1.15;text-transform:uppercase;
   word-break:break-word;overflow-wrap:break-word;
   color:var(--white);
 }
-.card-model.sm{font-size:1.4rem}
-.card-model.xs{font-size:1.15rem}
 .card-app{font-size:.98rem;color:var(--red);margin-top:5px;line-height:1.4}
 .card-specs{flex:1}
 .spec-row{display:flex;justify-content:space-between;align-items:center;padding:6px 18px;border-bottom:1px solid var(--rule)}
@@ -564,9 +562,7 @@ footer::before{
   .card-top{padding:11px 12px 9px}
   .card-cat-tag{font-size:.66rem;padding:2px 6px}
   .card-idx{font-size:.66rem}
-  .card-model{font-size:1.5rem}
-  .card-model.sm{font-size:1.15rem}
-  .card-model.xs{font-size:.98rem}
+  .card-model{font-size:1.1rem}
   .card-app{font-size:.85rem;margin-top:4px}
   .spec-row{padding:5px 12px}
   .spec-k{font-size:.66rem}
@@ -642,9 +638,7 @@ footer::before{
   .cat-card-subs{font-size:.65rem;line-height:1.5}
   .product-grid{grid-template-columns:repeat(2,1fr);gap:8px}
   .card-top{padding:10px 10px 8px}
-  .card-model{font-size:1.35rem}
-  .card-model.sm{font-size:1.05rem}
-  .card-model.xs{font-size:.9rem}
+  .card-model{font-size:1rem}
   .card-app{font-size:.8rem}
   .spec-row{padding:4px 10px}
   .spec-k{font-size:.62rem}
@@ -671,9 +665,7 @@ footer::before{
   .stat-l{font-size:.55rem;letter-spacing:.06em}
   .cat-overview-grid{grid-template-columns:1fr}
   .product-grid{grid-template-columns:1fr}
-  .card-model{font-size:1.5rem}
-  .card-model.sm{font-size:1.2rem}
-  .card-model.xs{font-size:1rem}
+  .card-model{font-size:1.1rem}
   .content-title{font-size:1.4rem}
   .catalog-main{padding:10px 8px 80px}
   .mobile-bottom-nav{height:54px}
@@ -1248,7 +1240,6 @@ function renderProducts(list, title, subtitle, catId, sub, emptyHint) {
       if (T && p.cat === "starter")    specs += `<div class="spec-row"><span class="spec-k">Teeth</span><span class="spec-v">${T}</span></div>`;
       if (!specs && p.spec) specs = `<div class="spec-row"><span class="spec-k">Spec</span><span class="spec-v">${p.spec.substring(0,20)}</span></div>`;
       const ml = (p.model||"").length;
-      const sizeClass = ml > 14 ? " xs" : ml > 9 ? " sm" : "";
       card.innerHTML = `
         <div class="card-topbar"></div>
         <div class="card-top">
@@ -1256,7 +1247,7 @@ function renderProducts(list, title, subtitle, catId, sub, emptyHint) {
             <span class="card-cat-tag">${p.sub || (cat ? cat.label : "")}</span>
             <span class="card-idx">${String(i+1).padStart(2,"0")}</span>
           </div>
-          <div class="card-model${sizeClass}">${p.model}</div>
+          <div class="card-model">${p.model}</div>
           ${p.app ? `<div class="card-app">${p.app}</div>` : ""}
         </div>
         <div class="card-specs">${specs}</div>
