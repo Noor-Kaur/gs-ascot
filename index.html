@@ -317,6 +317,8 @@ header::after{
 }
 .subcat-pill:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
 .subcat-pill.active{background:var(--gold);color:#fff;border-color:var(--gold);font-weight:700}
+.subcat-pill.child-pill{font-size:.72rem;border-style:dashed;background:var(--gold-dim);color:var(--gold)}
+.subcat-pill.child-pill.active{background:var(--red);color:#fff;border-color:var(--red);border-style:solid}
 
 /* ── EMPTY STATE ── */
 .empty-wrap{
@@ -927,8 +929,8 @@ if (tickerTrack) tickerTrack.innerHTML = [...TICKER_ITEMS,...TICKER_ITEMS,...TIC
 
 // ── CATEGORIES ──
 const CATEGORIES = [
-  { id:"self-starter", num:"01", label:"SELF-STARTER", subs:["Self-Starter Assembly", "Self Gear", "AA Bendix", "Armature", "Solenoid Switch", "EGT and Spares", "EGT Rubber", "Brush Holder", "Carbon Brush", "Field Coil with 4 Brush", "Self Fork", "Self Fork Top Kit", "Self Lock Katori Kit", "Killi Kit", "Self Body and Housing", "Self Housing"] },
-  { id:"alternator", num:"02", label:"ALTERNATOR", subs:["Alternator Assembly", "Pulley", "Pulley Tool Kit", "Alternator Stator", "Alternator Rotor", "Rectifier Plate", "Regulator", "OE Regulator", "Alternator Carbon", "Alternator Slip Ring", "Alternator Bearing"] },
+  { id:"self-starter", num:"01", label:"SELF-STARTER", subs:["Self-Starter Assembly", "Self Gear", "AA Bendix", "Armature", "Solenoid Switch", "EGT and Spares", "Brush Holder", "Carbon Brush", "Field Coil with 4 Brush", "Self Fork", "Self Fork Top Kit", "Self Lock Katori Kit", "Killi Kit", "Self Body and Housing", "Self Housing"] },
+  { id:"alternator", num:"02", label:"ALTERNATOR", subs:["Alternator Assembly", "Pulley", "Alternator Stator", "Alternator Rotor", "Rectifier Plate", "Regulator", "Alternator Carbon", "Alternator Slip Ring", "Alternator Bearing"] },
   { id:"bearings", num:"03", label:"BEARINGS", subs:[] },
   { id:"wiper-blades", num:"04", label:"WIPER BLADES", subs:["Universal Wiper Blade", "Bayonet Wiper Blade", "Car Specific Wiper Blade", "Banana Wiper Blade"] },
   { id:"wiper-motor", num:"05", label:"WIPER MOTOR", subs:["Wiper Motor with Linkage"] },
@@ -948,6 +950,12 @@ const CATEGORIES = [
 ];
 
 var PRODUCTS = [];
+
+const SUB_CHILDREN = {
+  "EGT and Spares": ["EGT Rubber"],
+  "Pulley": ["Pulley Tool Kit"],
+  "Regulator": ["OE Regulator"]
+};
 
 // ── STATE ──
 let currentCat = null, currentSub = null;
@@ -1100,7 +1108,9 @@ function filterSub(catId, sub) {
   const mInp = document.getElementById("mobile-search-input");
   if (mInp) mInp.value = "";
   const cat = CATEGORIES.find(c => c.id === catId);
-  const filtered = PRODUCTS.filter(p => p.cat === catId && p.sub === sub);
+  const children = SUB_CHILDREN[sub] || [];
+  const matchSubs = [sub, ...children];
+  const filtered = PRODUCTS.filter(p => p.cat === catId && matchSubs.includes(p.sub));
   updateSidebarActive(catId, sub);
   renderSubcatBar(cat, sub);
   renderProducts(filtered, cat ? cat.label : catId, sub, catId, sub);
@@ -1140,6 +1150,16 @@ function renderSubcatBar(cat, activeSub) {
     pill.textContent = sub;
     pill.onclick = () => filterSub(cat.id, sub);
     scroll.appendChild(pill);
+    const children = SUB_CHILDREN[sub] || [];
+    if (children.length && activeSub === sub) {
+      children.forEach(child => {
+        const cpill = document.createElement("button");
+        cpill.className = "subcat-pill child-pill" + (activeSub === child ? " active" : "");
+        cpill.textContent = "\u00A0\u00A0\u21B3 " + child;
+        cpill.onclick = () => filterSub(cat.id, child);
+        scroll.appendChild(cpill);
+      });
+    }
   });
 
   // Scroll active pill into view on mobile
@@ -1340,6 +1360,6 @@ document.addEventListener('productsReady', function() {
   }
 });
 </script>
-<script src="products.js?v=20260223h"></script>
+<script src="products.js?v=20260223i"></script>
 </body>
 </html>
