@@ -219,6 +219,9 @@ header::after{
 .sub-btn:hover{color:var(--gold);background:rgba(184,134,11,.05)}
 .sub-btn.active{color:var(--gold);border-left-color:var(--gold);background:var(--gold-dim);font-weight:700}
 .sub-btn.active::before{background:var(--gold);opacity:1}
+.child-sub-btn{padding-left:58px;font-size:.82rem;opacity:.85}
+.child-sub-btn.active{opacity:1;color:var(--red);border-left-color:var(--red);background:var(--red-dim)}
+.child-sub-btn.active::before{background:var(--red)}
 .sub-count{margin-left:auto;font-size:.75rem;opacity:.4;flex-shrink:0}
 
 /* ── MAIN CONTENT ── */
@@ -991,13 +994,25 @@ function buildSidebar() {
       sl.appendChild(allSb);
 
       cat.subs.forEach(sub => {
-        const count = PRODUCTS.filter(p => p.cat === cat.id && p.sub === sub).length;
+        const children = SUB_CHILDREN[sub] || [];
+        const childCounts = children.reduce((s, ch) => s + PRODUCTS.filter(p => p.cat === cat.id && p.sub === ch).length, 0);
+        const ownCount = PRODUCTS.filter(p => p.cat === cat.id && p.sub === sub).length;
+        const totalCount = ownCount + childCounts;
         const sb = document.createElement("button");
         sb.className = "sub-btn";
         sb.id = `subbtn-${cat.id}-${sub}`;
-        sb.innerHTML = `<span></span>${sub}<span class="sub-count">${count}</span>`;
+        sb.innerHTML = `<span></span>${sub}<span class="sub-count">${totalCount}</span>`;
         sb.onclick = () => filterSub(cat.id, sub);
         sl.appendChild(sb);
+        children.forEach(child => {
+          const cCount = PRODUCTS.filter(p => p.cat === cat.id && p.sub === child).length;
+          const csb = document.createElement("button");
+          csb.className = "sub-btn child-sub-btn";
+          csb.id = `subbtn-${cat.id}-${child}`;
+          csb.innerHTML = `<span></span>\u21B3 ${child}<span class="sub-count">${cCount}</span>`;
+          csb.onclick = () => filterSub(cat.id, child);
+          sl.appendChild(csb);
+        });
       });
       wrap.appendChild(sl);
     }
