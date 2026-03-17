@@ -1308,7 +1308,6 @@ function renderProducts(list, title, subtitle, catId, sub, emptyHint) {
       if (A && p.cat === "alternator") specs += `<div class="spec-row"><span class="spec-k">Current</span><span class="spec-v">${A}</span></div>`;
       if (T && p.cat === "starter")    specs += `<div class="spec-row"><span class="spec-k">Teeth</span><span class="spec-v">${T}</span></div>`;
       if (!specs && p.spec) specs = `<div class="spec-row"><span class="spec-k">Spec</span><span class="spec-v">${p.spec.substring(0,20)}</span></div>`;
-      const badge = p.new ? `<span class="foot-badge badge-new">New</span>` : `<span class="foot-badge badge-oe">OE</span>`;
       const ml = (p.model||"").length;
       const sizeClass = ml > 14 ? " xs" : ml > 9 ? " sm" : "";
       card.innerHTML = `
@@ -1322,10 +1321,7 @@ function renderProducts(list, title, subtitle, catId, sub, emptyHint) {
           ${p.app ? `<div class="card-app">${p.app}</div>` : ""}
         </div>
         <div class="card-specs">${specs}</div>
-        <div class="card-foot">
-          <span class="foot-ref">${(p.cat||"").substring(0,3).toUpperCase()}-${String(i+1).padStart(3,"0")}</span>
-          ${badge}
-        </div>`;
+`;
       grid.appendChild(card);
     });
     // cursor for cards
