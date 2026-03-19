@@ -1397,22 +1397,36 @@ function renderProducts(list, title, subtitle, catId, sub, emptyHint) {
         <div class="card-specs">${specs}</div>
 `;
       card.style.cursor = "pointer";
+      let cardDragged = false;
       card.addEventListener("click", (e) => {
+        if (cardDragged) { cardDragged = false; return; }
         if (e.target.closest(".card-img-nav")) return;
         openProductDetail(p);
       });
       const wrap = card.querySelector(".card-img-wrap[data-imgs]");
       if (wrap) {
+        function cardImgNav(dir) {
+          const allImgs = JSON.parse(wrap.dataset.imgs);
+          let idx = parseInt(wrap.dataset.idx);
+          idx = dir > 0 ? (idx + 1) % allImgs.length : (idx - 1 + allImgs.length) % allImgs.length;
+          wrap.dataset.idx = idx;
+          wrap.querySelector(".card-img-slide img").src = allImgs[idx];
+          wrap.querySelectorAll(".card-img-dot").forEach((d, j) => d.classList.toggle("active", j === idx));
+        }
         wrap.querySelectorAll(".card-img-nav").forEach(btn => {
-          btn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const allImgs = JSON.parse(wrap.dataset.imgs);
-            let idx = parseInt(wrap.dataset.idx);
-            idx = btn.classList.contains("right") ? (idx + 1) % allImgs.length : (idx - 1 + allImgs.length) % allImgs.length;
-            wrap.dataset.idx = idx;
-            wrap.querySelector(".card-img-slide img").src = allImgs[idx];
-            wrap.querySelectorAll(".card-img-dot").forEach((d, j) => d.classList.toggle("active", j === idx));
-          });
+          btn.addEventListener("click", (e) => { e.stopPropagation(); cardImgNav(btn.classList.contains("right") ? 1 : -1); });
+        });
+        let startX = 0;
+        wrap.addEventListener("mousedown", (e) => { if (!e.target.closest(".card-img-nav")) { startX = e.clientX; } });
+        wrap.addEventListener("mouseup", (e) => {
+          if (e.target.closest(".card-img-nav")) return;
+          const diff = e.clientX - startX;
+          if (Math.abs(diff) > 30) { cardDragged = true; cardImgNav(diff < 0 ? 1 : -1); }
+        });
+        wrap.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+        wrap.addEventListener("touchend", (e) => {
+          const diff = e.changedTouches[0].clientX - startX;
+          if (Math.abs(diff) > 30) { cardDragged = true; cardImgNav(diff < 0 ? 1 : -1); }
         });
       }
       grid.appendChild(card);
