@@ -1,0 +1,28 @@
+/* GS-ASCOT Product Images Manifest */
+var PRODUCT_IMAGES = {
+"ASC-SR-4001":["images/alternator-slip-ring/4001-1.jpg","images/alternator-slip-ring/4001-2.jpg","images/alternator-slip-ring/4001-3.jpg"],
+"ASC-SR-4002":["images/alternator-slip-ring/4002-1.jpg","images/alternator-slip-ring/4002-2.jpg","images/alternator-slip-ring/4002-3.jpg"],
+"ASC-SR-4003":["images/alternator-slip-ring/4003-1.jpg","images/alternator-slip-ring/4003-2.jpg","images/alternator-slip-ring/4003-3.jpg"],
+"ASC-SR-4004":["images/alternator-slip-ring/4004-1.jpg","images/alternator-slip-ring/4004-2.jpg","images/alternator-slip-ring/4004-3.jpg"],
+"ASC-SR-4005":["images/alternator-slip-ring/4005-1.jpg","images/alternator-slip-ring/4005-2.jpg","images/alternator-slip-ring/4005-3.jpg"],
+"ASC-SR-4006":["images/alternator-slip-ring/4006-1.jpg","images/alternator-slip-ring/4006-2.jpg","images/alternator-slip-ring/4006-3.jpg"],
+"ASC-SR-4007":["images/alternator-slip-ring/4007-1.jpg","images/alternator-slip-ring/4007-2.jpg","images/alternator-slip-ring/4007-3.jpg"],
+"ASC-SR-4008":["images/alternator-slip-ring/4008-1.jpg","images/alternator-slip-ring/4008-2.jpg","images/alternator-slip-ring/4008-3.jpg"],
+"ASC-SR-4009":["images/alternator-slip-ring/4009-1.jpg","images/alternator-slip-ring/4009-2.jpg","images/alternator-slip-ring/4009-3.jpg"],
+"ASC-SR-4010":["images/alternator-slip-ring/4010-1.jpg","images/alternator-slip-ring/4010-2.jpg","images/alternator-slip-ring/4010-3.jpg"],
+"ASC-SR-4011":["images/alternator-slip-ring/4011-1.jpg","images/alternator-slip-ring/4011-2.jpg","images/alternator-slip-ring/4011-3.jpg"],
+"ASC-SR-4012":["images/alternator-slip-ring/4012-1.jpg","images/alternator-slip-ring/4012-2.jpg","images/alternator-slip-ring/4012-3.jpg"],
+"ASC-SR-4013":["images/alternator-slip-ring/4013-1.jpg","images/alternator-slip-ring/4013-2.jpg","images/alternator-slip-ring/4013-3.jpg"],
+"ASC-SR-4014":["images/alternator-slip-ring/4014-1.jpg","images/alternator-slip-ring/4014-2.jpg"],
+"ASC-SR-4015":["images/alternator-slip-ring/4015-1.jpg","images/alternator-slip-ring/4015-2.jpg"],
+"ASC-SR-4016":["images/alternator-slip-ring/4016-1.jpg"],
+"ASC-SR-4018":["images/alternator-slip-ring/4018-1.jpg","images/alternator-slip-ring/4018-2.jpg"],
+"ASC-SR-4019":["images/alternator-slip-ring/4019-1.jpg","images/alternator-slip-ring/4019-2.jpg"],
+"ASC-SR-4020":["images/alternator-slip-ring/4020-1.jpg","images/alternator-slip-ring/4020-2.jpg"],
+"ASC-SR-4021":["images/alternator-slip-ring/4021-1.jpg","images/alternator-slip-ring/4021-2.jpg"],
+"ASC-SR-4022":["images/alternator-slip-ring/4022-1.jpg","images/alternator-slip-ring/4022-2.jpg"],
+"ASC-SR-4023":["images/alternator-slip-ring/4023-1.jpg","images/alternator-slip-ring/4023-2.jpg","images/alternator-slip-ring/4023-3.jpg"],
+"ASC-SR-4024":["images/alternator-slip-ring/4024-1.jpg","images/alternator-slip-ring/4024-2.jpg","images/alternator-slip-ring/4024-3.jpg"],
+"ASC-SR-4027":["images/alternator-slip-ring/4027-1.jpg","images/alternator-slip-ring/4027-2.jpg","images/alternator-slip-ring/4027-3.jpg"],
+"ASC-SR-4028":["images/alternator-slip-ring/4028-1.jpg","images/alternator-slip-ring/4028-2.jpg"]
+};
