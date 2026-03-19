@@ -371,6 +371,26 @@ header::after{
   transition:transform .3s ease;
 }
 .product-card:hover .card-img-slide img{transform:scale(1.06)}
+.card-img-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:28px;height:28px;border-radius:50%;border:none;
+  background:rgba(0,0,0,.35);color:#fff;font-size:14px;
+  cursor:pointer;display:none;align-items:center;justify-content:center;
+  z-index:3;transition:background .15s;
+}
+.card-img-nav:hover{background:rgba(0,0,0,.6)}
+.card-img-nav.left{left:6px}
+.card-img-nav.right{right:6px}
+.card-img-wrap:hover .card-img-nav{display:flex}
+.card-img-dots{
+  position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+  display:flex;gap:4px;z-index:2;
+}
+.card-img-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(0,0,0,.2);transition:background .2s;
+}
+.card-img-dot.active{background:var(--gold)}
 .card-img-placeholder{
   width:100%;height:100%;display:flex;align-items:center;justify-content:center;
   flex-direction:column;gap:6px;color:rgba(0,0,0,.18);
@@ -1357,7 +1377,9 @@ function renderProducts(list, title, subtitle, catId, sub, emptyHint) {
       const imgs = (typeof PRODUCT_IMAGES !== "undefined" && PRODUCT_IMAGES[p.spec]) ? PRODUCT_IMAGES[p.spec] : null;
       let imgHTML = "";
       if (imgs && imgs.length) {
-        imgHTML = `<div class="card-img-wrap"><div class="card-img-slide"><img src="${imgs[0]}" alt="${p.model}" loading="lazy"></div></div>`;
+        const arrows = imgs.length > 1 ? `<button class="card-img-nav left">&#8249;</button><button class="card-img-nav right">&#8250;</button>` : "";
+        const dots = imgs.length > 1 ? `<div class="card-img-dots">${imgs.map((_, j) => `<span class="card-img-dot${j===0?" active":""}"></span>`).join("")}</div>` : "";
+        imgHTML = `<div class="card-img-wrap" data-imgs='${JSON.stringify(imgs)}' data-idx="0">${arrows}${dots}<div class="card-img-slide"><img src="${imgs[0]}" alt="${p.model}" loading="lazy"></div></div>`;
       } else {
         imgHTML = `<div class="card-img-wrap"><div class="card-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>No image</span></div></div>`;
       }
@@ -1375,7 +1397,24 @@ function renderProducts(list, title, subtitle, catId, sub, emptyHint) {
         <div class="card-specs">${specs}</div>
 `;
       card.style.cursor = "pointer";
-      card.addEventListener("click", () => openProductDetail(p));
+      card.addEventListener("click", (e) => {
+        if (e.target.closest(".card-img-nav")) return;
+        openProductDetail(p);
+      });
+      const wrap = card.querySelector(".card-img-wrap[data-imgs]");
+      if (wrap) {
+        wrap.querySelectorAll(".card-img-nav").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const allImgs = JSON.parse(wrap.dataset.imgs);
+            let idx = parseInt(wrap.dataset.idx);
+            idx = btn.classList.contains("right") ? (idx + 1) % allImgs.length : (idx - 1 + allImgs.length) % allImgs.length;
+            wrap.dataset.idx = idx;
+            wrap.querySelector(".card-img-slide img").src = allImgs[idx];
+            wrap.querySelectorAll(".card-img-dot").forEach((d, j) => d.classList.toggle("active", j === idx));
+          });
+        });
+      }
       grid.appendChild(card);
     });
     document.querySelectorAll(".product-card").forEach(el => {
