@@ -394,6 +394,67 @@ header::after{
 .badge-oe{color:var(--gold);border-color:var(--gold-line);background:var(--gold-dim)}
 .badge-new{color:var(--red2);border-color:var(--red-line);background:var(--red-dim);animation:redpulse 2s infinite}
 
+/* ── PRODUCT DETAIL PAGE ── */
+.pdp-overlay{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:600;
+  background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+.pdp-overlay.open{display:block}
+.pdp-inner{max-width:720px;margin:0 auto;padding:100px 32px 60px}
+.pdp-back{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold);background:none;border:1px solid var(--gold-line);
+  padding:10px 20px;cursor:pointer;transition:all .15s;margin-bottom:32px;
+}
+.pdp-back:hover{background:var(--gold-dim);border-color:var(--gold)}
+.pdp-breadcrumb{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--white2);margin-bottom:16px;
+}
+.pdp-breadcrumb span{color:var(--gold)}
+.pdp-title{
+  font-family:var(--font-display);font-size:clamp(24px,5vw,36px);font-weight:700;
+  letter-spacing:.02em;line-height:1.25;text-transform:uppercase;
+  color:var(--white);margin-bottom:12px;
+}
+.pdp-app{
+  font-family:var(--font-display);font-size:16px;color:var(--red);margin-bottom:28px;
+}
+.pdp-image-area{
+  width:100%;aspect-ratio:4/3;background:var(--surface);border:1px solid var(--rule2);
+  display:flex;align-items:center;justify-content:center;margin-bottom:32px;overflow:hidden;
+}
+.pdp-image-area img{max-width:100%;max-height:100%;object-fit:contain}
+.pdp-image-placeholder{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--white2);text-align:center;
+}
+.pdp-image-placeholder svg{display:block;margin:0 auto 12px;opacity:.2}
+.pdp-specs-card{
+  background:#fff;border:1px solid var(--rule2);box-shadow:0 2px 8px rgba(0,0,0,.04);
+  margin-bottom:24px;
+}
+.pdp-specs-head{
+  padding:16px 24px;border-bottom:1px solid var(--rule);
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);font-weight:600;
+}
+.pdp-spec-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 24px;border-bottom:1px solid var(--rule);
+}
+.pdp-spec-row:last-child{border-bottom:none}
+.pdp-spec-k{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.pdp-spec-v{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--white)}
+.pdp-meta{
+  display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;
+}
+.pdp-tag{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:6px 14px;border:1px solid var(--gold-line);color:var(--gold);background:var(--gold-dim);
+}
+
 /* ── FOOTER ── */
 footer{
   background:var(--surface);
@@ -834,6 +895,11 @@ footer::before{
   </main>
 </div>
 
+<!-- ── PRODUCT DETAIL PAGE ── -->
+<div class="pdp-overlay" id="pdp-overlay">
+  <div class="pdp-inner" id="pdp-inner"></div>
+</div>
+
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-top">
@@ -1251,9 +1317,10 @@ function renderProducts(list, title, subtitle, catId, sub, emptyHint) {
         </div>
         <div class="card-specs">${specs}</div>
 `;
+      card.style.cursor = "pointer";
+      card.addEventListener("click", () => openProductDetail(p));
       grid.appendChild(card);
     });
-    // cursor for cards
     document.querySelectorAll(".product-card").forEach(el => {
       el.addEventListener("mouseenter", () => document.body.classList.add("lh"));
       el.addEventListener("mouseleave", () => document.body.classList.remove("lh"));
@@ -1365,6 +1432,83 @@ document.addEventListener('productsReady', function() {
   }
 });
 </script>
-<script src="products.js?v=20260223o"></script>
+<script>
+/* ── PRODUCT DETAIL PAGE ── */
+function openProductDetail(p) {
+  const overlay = document.getElementById("pdp-overlay");
+  const inner   = document.getElementById("pdp-inner");
+  const cat = CATEGORIES.find(c => c.id === p.cat);
+  const catLabel = cat ? cat.label : p.cat;
+  const subLabel = p.sub || "";
+
+  let specsHTML = "";
+  if (p.spec) {
+    const pts = (p.spec || "").split(" ");
+    const V  = pts.find(s => /^\d+V$/.test(s)) || "";
+    const KW = pts.find(s => s.includes("KW")) || "";
+    const A  = pts.find(s => /^\d+A$/.test(s)) || "";
+    const T  = pts.find(s => /^\d+T$/.test(s)) || "";
+    if (V)  specsHTML += `<div class="pdp-spec-row"><span class="pdp-spec-k">Voltage</span><span class="pdp-spec-v">${V}</span></div>`;
+    if (KW) specsHTML += `<div class="pdp-spec-row"><span class="pdp-spec-k">Power</span><span class="pdp-spec-v">${KW}</span></div>`;
+    if (A)  specsHTML += `<div class="pdp-spec-row"><span class="pdp-spec-k">Current</span><span class="pdp-spec-v">${A}</span></div>`;
+    if (T)  specsHTML += `<div class="pdp-spec-row"><span class="pdp-spec-k">Teeth</span><span class="pdp-spec-v">${T}</span></div>`;
+    if (!specsHTML) specsHTML = `<div class="pdp-spec-row"><span class="pdp-spec-k">Spec</span><span class="pdp-spec-v">${p.spec}</span></div>`;
+  }
+
+  inner.innerHTML = `
+    <button class="pdp-back" onclick="closeProductDetail()">&#8592; Back to Catalog</button>
+    <div class="pdp-breadcrumb">${catLabel}${subLabel ? " <span>&#8250;</span> " + subLabel : ""}</div>
+    <h1 class="pdp-title">${p.model}</h1>
+    ${p.app ? `<div class="pdp-app">${p.app}</div>` : ""}
+    <div class="pdp-meta">
+      <span class="pdp-tag">${catLabel}</span>
+      ${subLabel ? `<span class="pdp-tag">${subLabel}</span>` : ""}
+    </div>
+    <div class="pdp-image-area">
+      <div class="pdp-image-placeholder">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        Image Coming Soon
+      </div>
+    </div>
+    ${specsHTML ? `<div class="pdp-specs-card"><div class="pdp-specs-head">Specifications</div>${specsHTML}</div>` : ""}
+  `;
+
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+  history.pushState({ pdp: true }, "", "#product/" + encodeURIComponent(p.model));
+  overlay.scrollTop = 0;
+}
+
+function closeProductDetail() {
+  document.getElementById("pdp-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+  if (location.hash.startsWith("#product/")) {
+    history.back();
+  }
+}
+
+window.addEventListener("popstate", function(e) {
+  const overlay = document.getElementById("pdp-overlay");
+  if (overlay.classList.contains("open")) {
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+  } else if (location.hash.startsWith("#product/")) {
+    const modelName = decodeURIComponent(location.hash.replace("#product/", ""));
+    const p = PRODUCTS.find(pr => pr.model === modelName);
+    if (p) openProductDetail(p);
+  }
+});
+
+window.addEventListener("keydown", function(e) {
+  if (e.key === "Escape" && document.getElementById("pdp-overlay").classList.contains("open")) {
+    closeProductDetail();
+  }
+});
+</script>
+<script src="products.js?v=20260223p"></script>
 </body>
 </html>
