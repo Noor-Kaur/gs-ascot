@@ -358,6 +358,16 @@ header::after{
   transition:all .2s;
   box-shadow:0 2px 8px rgba(0,0,0,.04);
 }
+.card-img{
+  width:100%;aspect-ratio:1/1;overflow:hidden;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid var(--rule);
+}
+.card-img img{
+  width:100%;height:100%;object-fit:contain;
+  transition:transform .3s ease;
+}
+.product-card:hover .card-img img{transform:scale(1.06)}
 .product-card:hover{
   background:#fff;transform:translateY(-3px);
   box-shadow:0 8px 28px rgba(184,134,11,.12),0 0 0 1px var(--gold-line);
@@ -1335,8 +1345,10 @@ function renderProducts(list, title, subtitle, catId, sub, emptyHint) {
       if (A && p.cat === "alternator") specs += `<div class="spec-row"><span class="spec-k">Current</span><span class="spec-v">${A}</span></div>`;
       if (T && p.cat === "starter")    specs += `<div class="spec-row"><span class="spec-k">Teeth</span><span class="spec-v">${T}</span></div>`;
       if (!specs && p.spec) specs = `<div class="spec-row"><span class="spec-k">Spec</span><span class="spec-v">${p.spec.substring(0,20)}</span></div>`;
+      const imgs = (typeof PRODUCT_IMAGES !== "undefined" && PRODUCT_IMAGES[p.spec]) ? PRODUCT_IMAGES[p.spec] : null;
       card.innerHTML = `
         <div class="card-topbar"></div>
+        ${imgs ? `<div class="card-img"><img src="${imgs[0]}" alt="${p.model}" loading="lazy"></div>` : ""}
         <div class="card-top">
           <div class="card-row1">
             <span class="card-cat-tag">${p.sub || (cat ? cat.label : "")}</span>
