@@ -1623,23 +1623,24 @@ function openProductDetail(p) {
   overlay.scrollTop = 0;
 }
 
+var pdpClosing = false;
 function closeProductDetail() {
-  document.getElementById("pdp-overlay").classList.remove("open");
+  var overlay = document.getElementById("pdp-overlay");
+  if (!overlay.classList.contains("open")) return;
+  overlay.classList.remove("open");
   document.body.style.overflow = "";
   if (location.hash.startsWith("#product/")) {
+    pdpClosing = true;
     history.back();
   }
 }
 
-window.addEventListener("popstate", function(e) {
+window.addEventListener("popstate", function() {
+  if (pdpClosing) { pdpClosing = false; return; }
   var overlay = document.getElementById("pdp-overlay");
   if (overlay.classList.contains("open")) {
     overlay.classList.remove("open");
     document.body.style.overflow = "";
-  } else if (location.hash.startsWith("#product/")) {
-    var modelName = decodeURIComponent(location.hash.replace("#product/", ""));
-    var found = PRODUCTS.find(function(pr) { return pr.model === modelName; });
-    if (found) openProductDetail(found);
   }
 });
 
