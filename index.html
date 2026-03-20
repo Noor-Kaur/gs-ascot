@@ -670,13 +670,14 @@ footer::before{
     position:fixed;top:0;left:0;bottom:0;
     width:min(300px,85vw);height:100%;z-index:500;
     transform:translateX(-100%);
-    transition:transform .3s cubic-bezier(.4,0,.2,1);
+    transition:transform .3s cubic-bezier(.4,0,.2,1), visibility .3s;
     border-right:1px solid var(--rule2);
     padding-top:16px;padding-bottom:80px;
-    overflow-y:auto;will-change:transform;
+    overflow-y:auto;
     background:var(--surface);
+    visibility:hidden;
   }
-  #sidebar.open{transform:translateX(0)}
+  #sidebar.open{transform:translateX(0);visibility:visible}
   .sidebar-head{padding:12px 18px 10px}
   .all-btn{padding:11px 18px;font-size:.82rem;min-height:44px}
   .cat-btn{padding:11px 18px;font-size:1.1rem;min-height:44px}
@@ -1526,6 +1527,18 @@ document.addEventListener("touchend", e => {
   if (touchStartX < 24 && dx > 60) { openSidebar(); }
 }, { passive: true });
 
+// iOS bfcache: close sidebar when page is restored from back-forward cache
+window.addEventListener("pageshow", function(e) {
+  if (e.persisted) { closeSidebar(); }
+});
+// Close sidebar when returning to tab/app
+document.addEventListener("visibilitychange", function() {
+  if (!document.hidden) {
+    var s = document.getElementById("sidebar");
+    if (s && s.classList.contains("open")) { closeSidebar(); }
+  }
+});
+
 // Close sidebar when a category/sub is selected on mobile
 const origFilterCat = filterCat;
 const origFilterSub = filterSub;
@@ -1665,6 +1678,7 @@ window.addEventListener("popstate", function() {
     overlay.classList.remove("open");
     document.body.style.overflow = "";
   }
+  closeSidebar();
 });
 
 window.addEventListener("keydown", function(e) {
