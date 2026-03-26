@@ -12,7 +12,6 @@ var PRODUCT_IMAGES = {
 "ASC-1310":["images/pulley/1310-1.jpg", "images/pulley/1310-2.jpg", "images/pulley/1310-3.jpg", "images/pulley/1310-4.jpg"],
 "ASC-1311":["images/pulley/1311-1.jpg", "images/pulley/1311-2.jpg", "images/pulley/1311-3.jpg"],
 "ASC-1312":["images/pulley/1312-1.jpg", "images/pulley/1312-2.jpg", "images/pulley/1312-3.jpg"],
-"ASC-1313":["images/pulley/1313-1.jpg", "images/pulley/1313-2.jpg", "images/pulley/1313-3.jpg", "images/pulley/1313-4.jpg", "images/pulley/1313-5.jpg"],
 "ASC-1314":["images/pulley/1314-1.jpg", "images/pulley/1314-2.jpg", "images/pulley/1314-3.jpg"],
 "ASC-1315":["images/pulley/1315-1.jpg", "images/pulley/1315-2.jpg", "images/pulley/1315-3.jpg"],
 "ASC-1316":["images/pulley/1316-1.jpg", "images/pulley/1316-2.jpg", "images/pulley/1316-3.jpg"],
