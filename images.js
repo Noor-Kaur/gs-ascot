@@ -672,6 +672,7 @@ var PRODUCT_IMAGES = {
 "ASC-WM-11":["images/wiper-motor/WM-11-1.jpg", "images/wiper-motor/WM-11-2.jpg"],
 "ASC-WM-12":["images/wiper-motor/WM-12-1.jpg", "images/wiper-motor/WM-12-2.jpg"],
 "ASC-WM-14":["images/wiper-motor/WM-14-1.jpg", "images/wiper-motor/WM-14-2.jpg"],
+"ASC-WM-16":["images/wiper-motor/WM-16-1.jpg", "images/wiper-motor/WM-16-2.jpg", "images/wiper-motor/WM-16-3.jpg"],
 "ASC-WM-18":["images/wiper-motor/WM-18-1.jpg", "images/wiper-motor/WM-18-2.jpg"],
 "ASC-WM-19":["images/wiper-motor/WM-19-1.jpg", "images/wiper-motor/WM-19-2.jpg"],
 "ASC-WM-20":["images/wiper-motor/WM-20-1.jpg", "images/wiper-motor/WM-20-2.jpg"],
