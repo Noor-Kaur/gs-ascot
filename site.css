@@ -164,3 +164,37 @@ img{max-width:100%;display:block}
   font-family:var(--font-body);font-size:1.35rem;font-weight:600;
   white-space:nowrap;color:var(--ink);letter-spacing:-.01em;
 }
+
+/* scroll-driven car journey */
+.scroll-car-layer{
+  position:fixed;inset:0;pointer-events:none;z-index:45;
+  overflow:hidden;
+}
+.scroll-car-road{
+  position:absolute;inset:0;width:100%;height:100%;
+  opacity:.14;
+}
+.scroll-car-road path{
+  fill:none;stroke:var(--gold);stroke-width:2.5;
+  stroke-dasharray:12 10;stroke-linecap:round;
+}
+.scroll-car{
+  position:absolute;left:0;top:0;width:96px;height:auto;
+  will-change:transform;
+  filter:drop-shadow(0 10px 24px rgba(0,0,0,.18));
+  transform:translate(-50%,-50%);
+}
+.scroll-car svg{display:block;width:100%;height:auto}
+.scroll-car-wheels{animation:car-wheel-spin .4s linear infinite}
+@keyframes car-wheel-spin{to{transform:rotate(360deg)}}
+.scroll-car.is-parked .scroll-car-wheels{animation-play-state:paused}
+@media(max-width:900px){
+  .scroll-car{width:72px}
+  .scroll-car-road{opacity:.08}
+}
+@media(max-width:600px){
+  .scroll-car-layer{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .scroll-car-layer{display:none}
+}
