@@ -76,59 +76,35 @@ function initCounters() {
   });
 }
 
-/* Vehicle OEM brands (spell-checked) */
+/* Vehicle OEM brands — local logos in images/brands/ */
 var VEHICLE_BRANDS = [
-  { name: "Audi", icon: "https://cdn.simpleicons.org/audi/BB0A30", color: "#BB0A30" },
-  { name: "Mercedes-Benz", icon: "https://cdn.simpleicons.org/mercedes/242424", color: "#242424" },
-  { name: "BMW", icon: "https://cdn.simpleicons.org/bmw/0066B1", color: "#0066B1" },
-  { name: "Land Rover", icon: "https://cdn.simpleicons.org/landrover/005A2B", color: "#005A2B" },
-  { name: "Toyota", icon: "https://cdn.simpleicons.org/toyota/EB0A1E", color: "#EB0A1E" },
-  { name: "Honda", icon: "https://cdn.simpleicons.org/honda/CC0000", color: "#CC0000" },
-  { name: "Nissan", icon: "https://cdn.simpleicons.org/nissan/C3002F", color: "#C3002F" },
-  { name: "Hyundai", icon: "https://cdn.simpleicons.org/hyundai/002C5F", color: "#002C5F" },
-  { name: "Kia", icon: "https://cdn.simpleicons.org/kia/05141F", color: "#05141F" },
-  { name: "Tata", icon: "https://cdn.simpleicons.org/tata/486AAE", color: "#486AAE" },
-  { name: "Mahindra", icon: "https://cdn.simpleicons.org/mahindra/DD052B", color: "#DD052B" },
-  { name: "Bajaj", icon: "https://cdn.simpleicons.org/bajaj/0066B3", color: "#0066B3" },
-  {
-    name: "Maruti Suzuki",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Maruti_Suzuki_logo.svg/256px-Maruti_Suzuki_logo.svg.png",
-    color: "#2E3192"
-  },
-  {
-    name: "Ashok Leyland",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Ashok_Leyland_Logo.svg/256px-Ashok_Leyland_Logo.svg.png",
-    color: "#003DA5"
-  },
-  {
-    name: "BharatBenz",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/BharatBenz_logo.svg/256px-BharatBenz_logo.svg.png",
-    color: "#1A1A1A"
-  },
-  {
-    name: "Eicher",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Eicher_Motors_logo.svg/256px-Eicher_Motors_logo.svg.png",
-    color: "#ED1C24"
-  },
-  {
-    name: "Force",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Force_Motors_Logo.svg/256px-Force_Motors_Logo.svg.png",
-    color: "#003399"
-  },
-  { name: "Volvo", icon: "https://cdn.simpleicons.org/volvo/003057", color: "#003057" },
-  { name: "MG", icon: "https://cdn.simpleicons.org/mg/FF0000", color: "#FF0000" },
-  { name: "Jaguar", icon: "https://cdn.simpleicons.org/jaguar/000000", color: "#000000" },
-  { name: "Ford", icon: "https://cdn.simpleicons.org/ford/00274E", color: "#00274E" },
-  { name: "Chevrolet", icon: "https://cdn.simpleicons.org/chevrolet/CD9834", color: "#CD9834" },
-  { name: "Volkswagen", icon: "https://cdn.simpleicons.org/volkswagen/151F5D", color: "#151F5D" },
-  { name: "Skoda", icon: "https://cdn.simpleicons.org/skoda/4BA82E", color: "#4BA82E" },
-  { name: "JCB", icon: "https://cdn.simpleicons.org/jcb/FCB026", color: "#FCB026" },
-  {
-    name: "Komatsu",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Komatsu_logo.svg/256px-Komatsu_logo.svg.png",
-    color: "#140A9A"
-  },
-  { name: "Piaggio Ape", icon: "https://cdn.simpleicons.org/piaggio/0D4B87", color: "#0D4B87" }
+  { name: "Audi", icon: "images/brands/audi.png", color: "#BB0A30" },
+  { name: "Mercedes-Benz", icon: "images/brands/mercedes.png", color: "#242424" },
+  { name: "BMW", icon: "images/brands/bmw.png", color: "#0066B1" },
+  { name: "Land Rover", icon: "images/brands/land-rover.png", color: "#005A2B" },
+  { name: "Toyota", icon: "images/brands/toyota.png", color: "#EB0A1E" },
+  { name: "Honda", icon: "images/brands/honda.png", color: "#CC0000" },
+  { name: "Nissan", icon: "images/brands/nissan.png", color: "#C3002F" },
+  { name: "Hyundai", icon: "images/brands/hyundai.png", color: "#002C5F" },
+  { name: "Kia", icon: "images/brands/kia.png", color: "#05141F" },
+  { name: "Tata", icon: "images/brands/tata.png", color: "#486AAE" },
+  { name: "Mahindra", icon: "images/brands/mahindra.png", color: "#DD052B" },
+  { name: "Bajaj", icon: "images/brands/bajaj.svg", color: "#0066B3" },
+  { name: "Maruti Suzuki", icon: "images/brands/maruti-suzuki.png", color: "#2E3192" },
+  { name: "Ashok Leyland", icon: "images/brands/ashok-leyland.png", color: "#003DA5" },
+  { name: "BharatBenz", icon: "images/brands/bharatbenz.png", color: "#1A1A1A" },
+  { name: "Eicher", icon: "images/brands/eicher.png", color: "#ED1C24" },
+  { name: "Force", icon: "images/brands/force.png", color: "#003399" },
+  { name: "Volvo", icon: "images/brands/volvo.png", color: "#003057" },
+  { name: "MG", icon: "images/brands/mg.png", color: "#FF0000" },
+  { name: "Jaguar", icon: "images/brands/jaguar.png", color: "#000000" },
+  { name: "Ford", icon: "images/brands/ford.png", color: "#00274E" },
+  { name: "Chevrolet", icon: "images/brands/chevrolet.png", color: "#CD9834" },
+  { name: "Volkswagen", icon: "images/brands/volkswagen.png", color: "#151F5D" },
+  { name: "Skoda", icon: "images/brands/skoda.png", color: "#4BA82E" },
+  { name: "JCB", icon: "images/brands/jcb.svg", color: "#FCB026" },
+  { name: "Komatsu", icon: "images/brands/komatsu.svg", color: "#140A9A" },
+  { name: "Piaggio Ape", icon: "images/brands/piaggio-ape.svg", color: "#000000" }
 ];
 
 function onBrandImgError(img) {
@@ -155,7 +131,6 @@ function buildVehicleBrandChip(brand) {
     img.alt = brand.name + " logo";
     img.loading = "lazy";
     img.decoding = "async";
-    img.referrerPolicy = "no-referrer";
     img.onerror = function () { onBrandImgError(img); };
     iconWrap.appendChild(img);
   }
