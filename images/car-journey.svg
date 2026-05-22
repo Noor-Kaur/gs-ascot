@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="carBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d4a017"/>
+      <stop offset="55%" stop-color="#b8860b"/>
+      <stop offset="100%" stop-color="#8b6914"/>
+    </linearGradient>
+    <linearGradient id="carGlass" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c5e4f7"/>
+      <stop offset="100%" stop-color="#7eb3d4"/>
+    </linearGradient>
+    <linearGradient id="carShadow" x1="0%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#000" stop-opacity=".14"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="200" cy="112" rx="168" ry="7" fill="url(#carShadow)"/>
+  <path fill="#1a1a1a" opacity=".08" d="M52 88h296c8 0 14-6 14-14V72H38v2c0 8 6 14 14 14z"/>
+  <path fill="url(#carBody)" d="M48 78h48l12-22c4-8 12-14 24-14h96c12 0 22 6 28 14l10 22h52c10 0 18 8 18 18v6c0 10-8 18-18 18H48c-10 0-18-8-18-18v-6c0-10 8-18 18-18z"/>
+  <path fill="#cc2218" d="M318 58h52c6 0 11 5 11 11v14c0 6-5 11-11 11h-44V58z"/>
+  <path fill="#fff" opacity=".35" d="M318 62h40v6H318z"/>
+  <path fill="#f4e4a8" opacity=".4" d="M56 76h288v4H56z"/>
+  <path fill="url(#carGlass)" d="M108 44h52v28h-52zM168 40h56v32h-56zM232 40h48v32h-48zM288 44h36v28h-36z"/>
+  <path fill="none" stroke="#1a1a1a" stroke-opacity=".15" stroke-width="1" d="M108 44h180"/>
+  <rect x="54" y="70" width="10" height="6" rx="2" fill="#fff9e6" opacity=".9"/>
+  <rect x="336" y="68" width="14" height="8" rx="2" fill="#ff6b5a" opacity=".95"/>
+  <g transform="translate(98,88)">
+    <circle r="24" fill="#141414"/>
+    <circle r="16" fill="#2a2a2a"/>
+    <g class="car-wheel-spokes">
+      <circle r="16" fill="none" stroke="#6a6a6a" stroke-width="2.5"/>
+      <path stroke="#9a9a9a" stroke-width="3" stroke-linecap="round" d="M0-16V16M-16 0H16"/>
+      <path stroke="#555" stroke-width="2" stroke-linecap="round" d="M-11-11L11 11M11-11L-11 11"/>
+    </g>
+    <circle r="5" fill="#b8860b"/>
+  </g>
+  <g transform="translate(302,88)">
+    <circle r="24" fill="#141414"/>
+    <circle r="16" fill="#2a2a2a"/>
+    <g class="car-wheel-spokes">
+      <circle r="16" fill="none" stroke="#6a6a6a" stroke-width="2.5"/>
+      <path stroke="#9a9a9a" stroke-width="3" stroke-linecap="round" d="M0-16V16M-16 0H16"/>
+      <path stroke="#555" stroke-width="2" stroke-linecap="round" d="M-11-11L11 11M11-11L-11 11"/>
+    </g>
+    <circle r="5" fill="#b8860b"/>
+  </g>
+</svg>

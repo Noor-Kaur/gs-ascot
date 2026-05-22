@@ -163,96 +163,90 @@ function initBrandsMarquee() {
   });
 }
 
-/* Scroll-driven car (bird-style journey across the page) */
+/* Scroll-driven car — contained lane, rotating wheels */
 function initScrollCar() {
-  var layer = document.getElementById("scroll-car-layer");
+  var section = document.getElementById("car-journey");
   var car = document.getElementById("scroll-car");
-  var roadPath = document.getElementById("scroll-car-road-path");
-  var startEl = document.getElementById("scroll-car-start");
-  var endEl = document.getElementById("scroll-car-end");
-  if (!layer || !car || !startEl || !endEl) return;
+  var progressBar = document.getElementById("car-journey-progress");
+  if (!section || !car) return;
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    layer.style.display = "none";
+  var milestones = section.querySelectorAll(".car-journey-milestone");
+  var leftMin = 10;
+  var leftMax = 90;
+  var lastProgress = -1;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function placeMilestones() {
+    milestones.forEach(function (m) {
+      var at = parseFloat(m.getAttribute("data-at") || "0");
+      m.style.left = leftMin + at * (leftMax - leftMin) + "%";
+    });
+  }
+
+  function update() {
+    var rect = section.getBoundingClientRect();
+    var sectionTop = rect.top + window.scrollY;
+    var scrollable = section.offsetHeight - window.innerHeight;
+    if (scrollable < 80) return;
+
+    var raw = (window.scrollY - sectionTop) / scrollable;
+    var progress = Math.max(0, Math.min(1, raw));
+    var leftPct = leftMin + progress * (leftMax - leftMin);
+
+    car.style.left = leftPct + "%";
+
+    if (progressBar) {
+      progressBar.style.width = progress * (leftMax - leftMin) + "%";
+    }
+
+    var driving = !reduced && progress > 0.015 && progress < 0.985;
+    car.classList.toggle("is-driving", driving);
+    car.classList.toggle("is-parked", !driving);
+
+    if (!reduced && lastProgress >= 0) {
+      if (progress > lastProgress + 0.0005) car.dataset.dir = "1";
+      else if (progress < lastProgress - 0.0005) car.dataset.dir = "-1";
+    }
+    var dir = car.dataset.dir === "-1" ? -1 : 1;
+    car.style.transform = "translateX(-50%) scaleX(" + dir + ")";
+
+    milestones.forEach(function (m) {
+      var at = parseFloat(m.getAttribute("data-at") || "0");
+      var near =
+        Math.abs(progress - at) < 0.14 ||
+        (at === 0 && progress < 0.1) ||
+        (at >= 1 && progress > 0.9);
+      m.classList.toggle("is-active", near);
+    });
+
+    lastProgress = progress;
+  }
+
+  placeMilestones();
+
+  if (reduced) {
+    car.style.left = "50%";
+    car.style.transform = "translateX(-50%)";
+    car.classList.remove("is-driving");
     return;
-  }
-  if (window.innerWidth <= 600) {
-    layer.style.display = "none";
-    return;
-  }
-
-  /* Waypoints: x,y as % of viewport, flip = scaleX(-1) when driving left */
-  var waypoints = [
-    { x: 12, y: 78, flip: 1 },
-    { x: 28, y: 62, flip: 1 },
-    { x: 52, y: 48, flip: 1 },
-    { x: 78, y: 58, flip: -1 },
-    { x: 88, y: 38, flip: -1 },
-    { x: 62, y: 28, flip: -1 },
-    { x: 38, y: 42, flip: 1 },
-    { x: 18, y: 32, flip: 1 },
-    { x: 55, y: 72, flip: 1 },
-    { x: 82, y: 82, flip: -1 }
-  ];
-
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-  function ease(t) {
-    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-  }
-  function samplePath(t) {
-    var n = waypoints.length - 1;
-    var seg = Math.min(Math.floor(t * n), n - 1);
-    var local = t * n - seg;
-    var a = waypoints[seg];
-    var b = waypoints[seg + 1];
-    var lt = ease(local);
-    return {
-      x: lerp(a.x, b.x, lt),
-      y: lerp(a.y, b.y, lt),
-      flip: lt < 0.5 ? a.flip : b.flip
-    };
   }
 
   var ticking = false;
-  function update() {
-    ticking = false;
-    var start = startEl.getBoundingClientRect().top + window.scrollY;
-    var end = endEl.getBoundingClientRect().top + endEl.offsetHeight + window.scrollY;
-    var range = end - start;
-    if (range < 100) return;
-
-    var vh = window.innerHeight;
-    var scrollY = window.scrollY;
-    var raw = (scrollY + vh * 0.35 - start) / (range - vh * 0.25);
-    var progress = Math.max(0, Math.min(1, raw));
-    var pt = samplePath(progress);
-
-    var xPx = (pt.x / 100) * window.innerWidth;
-    var yPx = (pt.y / 100) * window.innerHeight;
-    var bounce = progress > 0.02 && progress < 0.98 ? Math.sin(progress * Math.PI * 8) * 1.5 : 0;
-
-    car.style.transform =
-      "translate(" + xPx + "px," + (yPx + bounce) + "px) translate(-50%,-50%) scaleX(" + pt.flip + ")";
-    car.classList.toggle("is-parked", progress <= 0.01 || progress >= 0.99);
-
-    if (roadPath) {
-      var len = roadPath.getTotalLength();
-      roadPath.style.strokeDasharray = len;
-      roadPath.style.strokeDashoffset = len * (1 - progress);
-    }
-  }
-
   function onScroll() {
     if (!ticking) {
       ticking = true;
-      requestAnimationFrame(update);
+      requestAnimationFrame(function () {
+        ticking = false;
+        update();
+      });
     }
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", update);
+  window.addEventListener("resize", function () {
+    placeMilestones();
+    update();
+  });
   update();
 }
 
