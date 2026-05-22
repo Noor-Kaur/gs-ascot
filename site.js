@@ -107,6 +107,12 @@ var VEHICLE_BRANDS = [
     icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Eicher_Motors_logo.svg/256px-Eicher_Motors_logo.svg.png",
     color: "#ED1C24"
   },
+  {
+    name: "Force",
+    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Force_Motors_Logo.svg/256px-Force_Motors_Logo.svg.png",
+    color: "#003399"
+  },
+  { name: "Volvo", icon: "https://cdn.simpleicons.org/volvo/003057", color: "#003057" },
   { name: "MG", icon: "https://cdn.simpleicons.org/mg/FF0000", color: "#FF0000" },
   { name: "Jaguar", icon: "https://cdn.simpleicons.org/jaguar/000000", color: "#000000" },
   { name: "Ford", icon: "https://cdn.simpleicons.org/ford/00274E", color: "#00274E" },
