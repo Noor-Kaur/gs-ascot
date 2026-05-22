@@ -21,6 +21,9 @@ function loadBrandLogo() {
       document.querySelectorAll("[data-brand-text]").forEach(function (el) {
         el.style.display = "none";
       });
+      document.querySelectorAll("[data-hero-wordmark]").forEach(function (el) {
+        el.style.display = "none";
+      });
     })
     .catch(function () {});
 }
