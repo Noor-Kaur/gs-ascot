@@ -1,0 +1,162 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:10px}
+:root{
+  --bg:#ffffff;--surface:#f8f5f0;--surface2:#f0ebe3;
+  --ink:#1a1a1a;--muted:rgba(26,26,26,.55);
+  --gold:#b8860b;--gold2:#d4a017;--gold-dim:rgba(184,134,11,.1);--gold-line:rgba(184,134,11,.35);
+  --red:#cc2218;--red-dim:rgba(204,34,24,.1);
+  --dark:#121212;--dark2:#1e1e1e;
+  --rule:rgba(0,0,0,.06);--rule2:rgba(0,0,0,.1);
+  --font-display:"Unbounded",sans-serif;--font-body:"Syne",sans-serif;--font-mono:"Syne Mono",monospace;
+  --shadow:0 20px 50px rgba(0,0,0,.08);--shadow-lg:0 32px 64px rgba(0,0,0,.12);
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+/* header */
+.site-header{
+  position:sticky;top:0;z-index:500;height:68px;padding:0 clamp(20px,4vw,48px);
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--rule2);
+}
+.site-header::after{
+  content:"";position:absolute;bottom:-1px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--red),var(--gold) 40%,var(--gold) 60%,var(--red));
+}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand-logo{height:40px;width:auto}
+.brand-name{font-family:var(--font-display);font-size:1.5rem;font-weight:700;letter-spacing:-.02em}
+.brand-name span{color:var(--gold)}
+.site-nav{display:flex;align-items:center;gap:26px}
+.site-nav a{
+  font-family:var(--font-mono);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;color:var(--muted);transition:color .2s;
+}
+.site-nav a:hover,.site-nav a.active{color:var(--gold)}
+.nav-cta{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff!important;
+  padding:10px 18px;text-decoration:none;box-shadow:0 4px 14px rgba(184,134,11,.35);
+  transition:transform .15s,box-shadow .2s;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(184,134,11,.45)}
+.menu-btn{display:none;background:#fff;border:1px solid var(--rule2);padding:8px 12px;font-size:1.6rem;cursor:pointer;border-radius:4px}
+
+/* buttons */
+.btn-primary,.btn-secondary,.btn-dark{
+  font-family:var(--font-mono);font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:14px 26px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;
+  transition:transform .15s,box-shadow .2s,background .2s,border-color .2s;
+}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;box-shadow:0 6px 20px rgba(184,134,11,.3)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(184,134,11,.4)}
+.btn-secondary{border:1px solid var(--rule2);background:#fff}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.btn-dark{background:var(--dark);color:#fff}
+.btn-dark:hover{background:var(--dark2);transform:translateY(-2px)}
+
+/* sections */
+.section{padding:clamp(64px,9vw,100px) clamp(24px,5vw,64px)}
+.section-inner{max-width:1140px;margin:0 auto}
+.section-tag{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;display:inline-flex;align-items:center;gap:10px;
+}
+.section-tag::before{content:"";width:24px;height:1px;background:var(--gold)}
+.section h2{
+  font-family:var(--font-display);font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:700;
+  letter-spacing:-.03em;line-height:1.1;margin-bottom:14px;
+}
+.section-intro{color:var(--muted);font-size:clamp(1.45rem,2vw,1.7rem);max-width:58ch;margin-bottom:40px}
+
+/* footer */
+.site-footer{background:var(--dark);color:rgba(255,255,255,.72);padding:56px clamp(24px,5vw,64px) 28px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;max-width:1140px;margin:0 auto 36px}
+.footer-grid h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.footer-grid a{display:block;font-size:1.35rem;color:rgba(255,255,255,.55);text-decoration:none;margin-bottom:8px;transition:color .2s}
+.footer-grid a:hover{color:#fff}
+.footer-brand{font-family:var(--font-display);font-size:1.9rem;color:#fff;margin-bottom:10px}
+.footer-base{max-width:1140px;margin:0 auto;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:1.25rem;color:rgba(255,255,255,.4)}
+
+.mobile-nav{
+  display:none;position:fixed;inset:68px 0 0 0;background:rgba(255,255,255,.98);
+  flex-direction:column;padding:36px 28px;gap:22px;z-index:400;border-top:1px solid var(--rule2);
+}
+.mobile-nav.open{display:flex}
+.mobile-nav a{font-family:var(--font-mono);font-size:1.05rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+
+@media(max-width:960px){
+  .site-nav{display:none}
+  .menu-btn{display:block}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .footer-grid{grid-template-columns:1fr}
+}
+
+/* vehicle brands marquee */
+.brands-banner-section{
+  padding:clamp(40px,6vw,56px) 0 clamp(48px,7vw,64px);
+  background:linear-gradient(180deg,#fff 0%,var(--surface) 100%);
+  border-bottom:1px solid var(--rule2);
+}
+.brands-banner-head{
+  text-align:center;padding:0 clamp(20px,4vw,48px) 28px;
+  max-width:720px;margin:0 auto;
+}
+.brands-banner-head .section-tag{justify-content:center}
+.brands-banner-head h2{
+  font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.6rem);
+  font-weight:700;letter-spacing:-.02em;margin-bottom:8px;
+}
+.brands-banner-sub{font-size:1.4rem;color:var(--muted)}
+.brands-marquee-wrap{position:relative;overflow:hidden}
+.brands-marquee-fade{
+  position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;
+}
+.brands-marquee-fade-l{left:0;background:linear-gradient(90deg,var(--surface) 20%,transparent)}
+.brands-marquee-fade-r{right:0;background:linear-gradient(270deg,var(--surface) 20%,transparent)}
+.brands-marquee{overflow:hidden;padding:8px 0}
+.brands-marquee-track{
+  display:flex;width:max-content;gap:20px;
+  animation:brands-scroll 55s linear infinite;
+}
+.brands-marquee-wrap:hover .brands-marquee-track{animation-play-state:paused}
+@keyframes brands-scroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+.vehicle-brand-chip{
+  flex:0 0 auto;display:flex;align-items:center;gap:14px;
+  padding:14px 22px 14px 14px;background:#fff;
+  border:1px solid var(--rule2);border-radius:14px;
+  box-shadow:0 4px 16px rgba(0,0,0,.04);
+  min-width:200px;transition:transform .2s,box-shadow .2s,border-color .2s;
+}
+.vehicle-brand-chip:hover{
+  transform:translateY(-3px);border-color:var(--gold-line);
+  box-shadow:0 10px 28px rgba(184,134,11,.12);
+}
+.vehicle-brand-icon{
+  width:52px;height:52px;border-radius:10px;background:var(--surface);
+  border:1px solid var(--rule2);display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;overflow:hidden;position:relative;
+}
+.vehicle-brand-img{width:100%;height:100%;object-fit:contain;padding:6px}
+.vehicle-brand-mono{
+  display:none;font-family:var(--font-display);font-size:1.1rem;font-weight:800;
+  color:var(--brand-color,var(--gold));letter-spacing:-.02em;
+}
+.vehicle-brand-name{
+  font-family:var(--font-body);font-size:1.35rem;font-weight:600;
+  white-space:nowrap;color:var(--ink);letter-spacing:-.01em;
+}
