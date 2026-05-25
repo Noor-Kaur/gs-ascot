@@ -163,97 +163,9 @@ function initBrandsMarquee() {
   });
 }
 
-/* Scroll-driven car — contained lane, rotating wheels */
-function initScrollCar() {
-  var section = document.getElementById("car-journey");
-  var car = document.getElementById("scroll-car");
-  var progressBar = document.getElementById("car-journey-progress");
-  if (!section || !car) return;
-
-  var milestones = section.querySelectorAll(".car-journey-milestone");
-  var leftMin = 10;
-  var leftMax = 90;
-  var lastProgress = -1;
-  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  function placeMilestones() {
-    milestones.forEach(function (m) {
-      var at = parseFloat(m.getAttribute("data-at") || "0");
-      m.style.left = leftMin + at * (leftMax - leftMin) + "%";
-    });
-  }
-
-  function update() {
-    var rect = section.getBoundingClientRect();
-    var sectionTop = rect.top + window.scrollY;
-    var scrollable = section.offsetHeight - window.innerHeight;
-    if (scrollable < 80) return;
-
-    var raw = (window.scrollY - sectionTop) / scrollable;
-    var progress = Math.max(0, Math.min(1, raw));
-    var leftPct = leftMin + progress * (leftMax - leftMin);
-
-    car.style.left = leftPct + "%";
-
-    if (progressBar) {
-      progressBar.style.width = progress * (leftMax - leftMin) + "%";
-    }
-
-    var driving = !reduced && progress > 0.015 && progress < 0.985;
-    car.classList.toggle("is-driving", driving);
-    car.classList.toggle("is-parked", !driving);
-
-    if (!reduced && lastProgress >= 0) {
-      if (progress > lastProgress + 0.0005) car.dataset.dir = "1";
-      else if (progress < lastProgress - 0.0005) car.dataset.dir = "-1";
-    }
-    var dir = car.dataset.dir === "-1" ? -1 : 1;
-    car.style.transform = "translateX(-50%) scaleX(" + dir + ")";
-
-    milestones.forEach(function (m) {
-      var at = parseFloat(m.getAttribute("data-at") || "0");
-      var near =
-        Math.abs(progress - at) < 0.14 ||
-        (at === 0 && progress < 0.1) ||
-        (at >= 1 && progress > 0.9);
-      m.classList.toggle("is-active", near);
-    });
-
-    lastProgress = progress;
-  }
-
-  placeMilestones();
-
-  if (reduced) {
-    car.style.left = "50%";
-    car.style.transform = "translateX(-50%)";
-    car.classList.remove("is-driving");
-    return;
-  }
-
-  var ticking = false;
-  function onScroll() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(function () {
-        ticking = false;
-        update();
-      });
-    }
-  }
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", function () {
-    placeMilestones();
-    update();
-  });
-  update();
-}
-
 document.addEventListener("DOMContentLoaded", function () {
   loadBrandLogo();
   initReveal();
   initCounters();
   initBrandsMarquee();
-  initScrollCar();
 });
